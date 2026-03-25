@@ -1,0 +1,16 @@
+# NodeJS
+node_modules/
+yarn-error.log
+
+# VSCode
+**/.vscode/*
+!**/.vscode/tasks.json
+!**/.vscode/settings.template.json
+!**/.vscode/launch.template.json
+!**/.vscode/extensions.json
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
