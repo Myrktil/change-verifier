@@ -1,0 +1,26 @@
+name: Review mapping
+
+description: Compare changed files in a Forgejo pull request against a custom pattern.
+
+inputs:
+  changes_path:
+    description: The path to a file containing the PR's changes.
+    required: true
+  pattern:
+    description: The pattern to compare the changes against.
+    required: true
+  wildcard_replacements:
+    description: The replacements for folder wildcards, separated by spaces.
+    required: false
+
+outputs:
+  status:
+    description: "Numeric status code: 0 pass, 1 invalid changes, 2 runtime error."
+  invalid_changes:
+    description: JSON string of invalid changes array.
+  message:
+    description: A string containing additional information.
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
