@@ -24,7 +24,7 @@ The pattern is a string where each line is one of the following:
 - a .gitignore glob
 - a status annotation ("$status:status1&status2&status3")  
 
-In the globs a folder may be replaced with r"<[^>]*>". For each value in wildcard_replacements a new glob will be created where that pattern is replaced with the respective replacement.  
+In the globs a folder may be replaced with a string that matches the following RegEx: "<[^>]*>". For each value in wildcard_replacements a new glob will be created where that pattern is replaced with the respective replacement.  
 A status annotation can be followed by at least one file status. Multiple status values need to be connected by '&'.
 All globs following that annotation, until the next status annotation, will allow changes whose filepath they cover and whose status matches at least one of the statuses in the annotation.
 
@@ -80,7 +80,7 @@ The action passes only fails when a runtime error occurs. This means a passed ta
 ```
 - name: Run review
   id: review
-  uses: Myrktil/pr-change-verifier@v1
+  uses: Myrktil/change-verifier@v1
   with:
     changes_path: full_changes.json
     pattern: |
