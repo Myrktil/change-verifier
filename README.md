@@ -3,7 +3,7 @@
 This GitHub action takes a list of changed files and a list of allowed changes and returns all unallowed changes.  
 
 ## Inputs and outputs
-See action.yml for a quick overview.
+See action.yml for the version you want to use for a quick overview.
 
 ### Changes list syntax
 The changes need to be passed as an array of json objects containg at least the following fields:
@@ -49,13 +49,15 @@ $status: added
 
 ### Folder wildcards
 Folder wildcards allow dynamic rules in the pattern.  
-The wildcard_replacements input takes a whitespace seperated lists of values and for every glob in the pattern that contains the wildcard pattern, a new glob will be created for each replacement value where all occurences of that pattern are replaced by that replacement.
+**v1**: The wildcard_replacements input takes a whitespace seperated lists of values.
+**v1.1**: The wildcard_replacements input takes json array of strings.  
+For every glob in the provided pattern that contains the wildcard pattern, a new glob will be created for each replacement value where all occurences of that pattern are replaced by that replacement.
 
 **Example**:
 
 Wildcard replacements input: 
 ```
-folder1 folder2
+["folder1", "folder2"]
 ```
 Pattern input:
 ```
@@ -77,6 +79,7 @@ The comparison between a change's status and the status annotations in the allow
 The action passes only fails when a runtime error occurs. This means a passed task does not imply that the changes are valid. Information about the files' validity can be taken from the output's status field.
 
 ## Usage example
+**v1**:
 ```
 - name: Run review
   id: review
@@ -88,4 +91,17 @@ The action passes only fails when a runtime error occurs. This means a passed ta
       *.txt
       !new_file001.txt
     wildcard_replacements: replacement1 replacement2
+```
+**v1.1**:
+```
+- name: Run review
+  id: review
+  uses: Myrktil/change-verifier@v1.1
+  with:
+    changes_path: full_changes.json
+    pattern: |
+      $status: added
+      *.txt
+      !new_file001.txt
+    wildcard_replacements: ["replacement1", "replacement2"]
 ```

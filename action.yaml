@@ -10,7 +10,7 @@ inputs:
     description: The pattern to compare the changes against.
     required: true
   wildcard_replacements:
-    description: The replacements for folder wildcards, separated by spaces.
+    description: The replacements for folder wildcards, passed as a json array of strings.
     required: false
 
 outputs:

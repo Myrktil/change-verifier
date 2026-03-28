@@ -24,9 +24,12 @@ export async function run() {
         const patternInput = core.getInput("pattern", { required: true });
         const wildcardReplacementsInput = core.getInput("wildcard_replacements", { required: false });
 
-        const wildcardReplacements = wildcardReplacementsInput
-            ? wildcardReplacementsInput.split(" ").filter((item) => item.length > 0)
-            : [];
+        const wildcardReplacements = JSON.parse(wildcardReplacementsInput);
+        if (!Array.isArray(wildcardReplacements) || 
+            !wildcardReplacements.every(item => typeof item === "string")
+        ) {
+            throw Error(`Invalid wildcard replacement syntax. Provided value:\n${wildcardReplacementsInput}`);
+        }
 
         const parsedPattern = new PatternParser(patternInput, wildcardReplacements);
 
@@ -45,7 +48,7 @@ export async function run() {
         if (error instanceof Error) {
             const message = `Test failed due to a runtime exception.\n${error.name}\n${error.message}\n${error.stack}`
             setOutputs(2, [], message);
-            core.setFailed(message);
+            core.setFailed(error);
         }
     }
 }
