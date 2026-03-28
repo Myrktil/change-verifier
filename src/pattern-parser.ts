@@ -42,9 +42,8 @@ export class PatternParser {
                     line.replace(regex, replacement)
                 );
             })
-            // Remove whitespaces for easier parsing.
             .map(line => {
-                return line.replace(/\s+/g, "");
+                return line.trim();
             });
 
         let statusList: FileStatus[] = [];
@@ -52,8 +51,6 @@ export class PatternParser {
         // Sort changes into categories.
         for (let i = 0; i < lines.length; i += 1) {
             let line = lines[i];
-            // Remove all whitespaces for easier parsing.
-            line = line.replace(/\s+/g, "");
 
             // Ignore comments and empty lines.
             if (line.startsWith("#") || !line) {
@@ -62,6 +59,9 @@ export class PatternParser {
 
             // Parse status annotations.
             if (line.startsWith(STATUS_ANNOTATION_SYNTAX)) {
+                // Ignore any whitespaces for easier parsing.
+                line = line.replace(/\s+/g, "");
+
                 const annotationValue = line.slice(STATUS_ANNOTATION_SYNTAX.length);
                 if (!annotationValue) {
                     throw new Error(`Failed to parse pattern. No file status provided after '${STATUS_ANNOTATION_SYNTAX}' in line ${i + 1}`);
