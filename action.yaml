@@ -17,7 +17,7 @@ outputs:
   status:
     description: "Numeric status code: 0 pass, 1 invalid changes, 2 runtime error."
   invalid_changes:
-    description: JSON string of invalid changes array.
+    description: Path to a JSON file containing invalid changes.
   message:
     description: A string containing additional information.
 

@@ -49,7 +49,7 @@ $status: added
 
 ### Folder wildcards
 Folder wildcards allow dynamic rules in the pattern.  
-**v1**: The wildcard_replacements input takes a whitespace seperated lists of values.
+**v1**: The wildcard_replacements input takes a whitespace seperated lists of values.  
 **v1.1**: The wildcard_replacements input takes json array of strings.  
 For every glob in the provided pattern that contains the wildcard pattern, a new glob will be created for each replacement value where all occurences of that pattern are replaced by that replacement.
 
